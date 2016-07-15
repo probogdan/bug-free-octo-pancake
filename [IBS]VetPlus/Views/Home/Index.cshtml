@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="main">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>VetPlus</title>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/jquery.js"></script>
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="http://vk.com/id0" class="navbar-brand" VetPlus />
+                <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Channels</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Sub-link</a></li>
+                            <li><a href="#">Sub-link</a></li>
+                            <li><a href="#">Sub-link</a></li>
+                            <li><a href="#">Sub-link</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-right navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
+                        <ul class="dropdown-menu" style="padding:12px;">
+                            <form class="form-inline">
+                                <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input type="text" class="form-control pull-left" placeholder="Search">
+                            </form>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Login</a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">About</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1><a href="#" title="Scroll down for your viewing pleasure">Veterenary</a></h1>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <img class="thumbnail" src="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div style="background-color:red;" class="col-md-2">
+            <div class="panel panel-default" id="sidebar">
+                <div class="panel-heading" style="background-color:#888;color:#fff;">Navigation</div>
+                <div class="panel-body">
+                    <ul class="nav">
+                        <li><a href="#/main">Main</a></li>
+                        <li><a href="#/question">Q&A</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">Consultation</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">UsersPhotos</a></li>
+                    </ul>
+                    <div class="col">
+                        <i class="icon-2x icon-facebook"></i>&nbsp;
+                        <i class="icon-2x icon-twitter"></i>&nbsp;
+                        <i class="icon-2x icon-linkedin"></i>&nbsp;
+                        <i class="icon-2x icon-pinterest"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color:magenta;" class="col-md-3">
+            <div class="panel" id="midCol">
+                <div class="panel-heading" style="background-color:#555;color:#eee;">New publications</div>
+                <div class="panel-body">
+
+                    <img class="img-responsive" src="#">
+
+                    <div class="well">
+                        Spurdo-sparde
+                    </div>
+
+                    <hr>
+
+                    <h3>Top Specialists</h3>
+
+                    <h5><a href="#"><i class="glyphicon glyphicon-user"></i> Dmitriy</a></h5>
+                    <h5><a href="#"><i class="glyphicon glyphicon-user"></i> Dmitriy</a></h5>
+                    <h5><a href="#"><i class="glyphicon glyphicon-user"></i> Dmitriy</a></h5>
+                    <h5><a href="#"><i class="glyphicon glyphicon-user"></i> Dmitriy</a></h5>
+                    <h5><a href="#"><i class="glyphicon glyphicon-user"></i> Dmitriy</a></h5>
+
+                    <hr>
+
+                    <img class="img-responsive" src="#">
+
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="#">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading"><a href="#" target="ext" class="pull-right"><i class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>Modal</strong></a></h5>
+                            <small>Example random news</small><br>
+                            <span class="badge">87</span>
+                        </div>
+                    </div>
+
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="#">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading"><a href="#" target="ext" class="pull-right"><i class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>Modal</strong></a></h5>
+                            <small>Example random news</small><br>
+                            <span class="badge">87</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--CONTAINER FOR RENDERING-->
+        <div style="background-color:yellow;" class="col-md-7" id="content">
+            <ng-view> </ng-view>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <h5>
+                        2k16
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
