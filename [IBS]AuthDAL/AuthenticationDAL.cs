@@ -6,81 +6,193 @@ using System.Threading.Tasks;
 using _IBS_Entities;
 using _IBS_InterfacesDAL;
 using System.Configuration;
+using System.Data.SqlClient;
 
 namespace _IBS_AuthDAL
 {
     public class AuthenticationDAL : IAuthDALRoleProvider
     {
-        string ConnectionString;
+        string _connectionString;
 
         public AuthenticationDAL()
         {
-            ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        }
-
-        public void AddUsersToRoles(string[] usernames, string[] roleNames)
-        {
-            throw new NotImplementedException();
-        }
+            _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        }       
 
         public void CreateAccount(Account account)
         {
-            throw new NotImplementedException();
-        }
+            string queryString =
+                "";
 
-        public void CreateRole(string roleName)
-        {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("accountid", account.Id);
+                
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }           
         }
-
-        public bool DeleteRole(string roleName, bool throwOnPopulatedRole)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string[] FindUsersInRole(string roleName, string usernameToMatch)
-        {
-            throw new NotImplementedException();
-        }
-
+             
+        
         public string[] GetAllRoles()
         {
-            throw new NotImplementedException();
+            var queryString = "SELECT DISTINCT [Name] " +
+                              "FROM[dbo].[Roles];";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                var roles = new List<string>();
+                
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    roles.Add((string)reader[0]);
+                }
+                return roles.ToArray();
+            }
         }
 
         public string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TO DO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         }
 
         public Account GetUser(Guid id)
         {
-            throw new NotImplementedException();
+            var queryString = "SELECT [Id], [Name], [Password], [DateOfBirth], [Age] " +
+                              "FROM [dbo].[Accounts] " +
+                              "WHERE  [Id] = @accountid";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("accountid", id);
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new Account()
+                    {
+                       Id = (Guid)reader[0],
+                       Name = (string)reader[1],
+                       Password = (string)reader[2],
+                       DateOfBirth = (DateTime)reader[3],
+                       Age = (int)reader[4]
+                    };
+                }
+                return null;
+            }
         }
 
         public Account GetUser(string name)
         {
-            throw new NotImplementedException();
+            var queryString = "SELECT [Id], [Name], [Password], [DateOfBirth], [Age] " +
+                             "FROM [dbo].[Accounts] " +
+                             "WHERE  [Name] = @name";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("name", name);
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new Account()
+                    {
+                        Id = (Guid)reader[0],
+                        Name = (string)reader[1],
+                        Password = (string)reader[2],
+                        DateOfBirth = (DateTime)reader[3],
+                        Age = (int)reader[4]
+                    };
+                }
+                return null;
+            }
         }
 
-        public string[] GetUsersInRole(string roleName)
+        public List<Account> GetUsersInRole(string roleName)
         {
-            throw new NotImplementedException();
+            var queryString = "SELECT A.[Id], A.[Name], [Password], [DateOfBirth], [Age] " +
+                             " FROM[dbo].[Accounts] A " +
+                              "INNER JOIN[dbo].[Roles] R " +
+                              "ON R.[IdUser] = A.[Id] " +
+                              " WHERE R.[Name] = @roleName;";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                var accounts = new List<Account>();
+
+                command.Parameters.AddWithValue("roleName", roleName);
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    accounts.Add(new Account()
+                    {
+                        Id = (Guid)reader[0],
+                        Name = (string)reader[1],
+                        Password = (string)reader[2],
+                        DateOfBirth = (DateTime)reader[3],
+                        Age = (int)reader[4]
+                    });
+                }
+                return accounts;
+            }
         }
 
         public bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
-        }
+            var queryString =
+                "SELECT A.[Name] " +
+                "FROM[dbo].[Accounts] A" +
+                "INNER JOIN[dbo].[Roles] R" +
+                "ON R.[IdUser] = A.[Id]" +
+                "WHERE A.[Name] = @username AND R.[Name] = @roleName;";
 
-        public void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
-        {
-            throw new NotImplementedException();
-        }
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
 
-        public bool RoleExists(string roleName)
-        {
-            throw new NotImplementedException();
-        }
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("roleName", roleName);
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    if ((string)reader[0] != null)
+                        return true;
+                }                
+            }
+
+            return false;
+        }              
     }
 }
