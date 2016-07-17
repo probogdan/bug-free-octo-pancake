@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using _IBS_Entities;
 using _IBS_InterfacesDAL;
 using System.Configuration;
@@ -17,18 +14,30 @@ namespace _IBS_AuthDAL
         public AuthenticationDAL()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        }       
+        }
+
+        public void AddRoleToUser(Guid id, string role)
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateAccount(Account account)
         {
             string queryString =
-                "";
+                "INSERT INTO [dbo].[Accounts] ([Id], [Name], [Password], [ProfilePhoto], [ProfilePhotoMimeType], [DateOfBirth], [Age]) " +
+                "VALUES(@id, @name, @password, @profilephoto, @profilephotomimetype, @dateofbirth, @age);";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand(queryString, connection);
-                command.Parameters.AddWithValue("accountid", account.Id);
-                
+                command.Parameters.AddWithValue("id", account.Id);
+                command.Parameters.AddWithValue("name", account.Id);
+                command.Parameters.AddWithValue("password", account.Id);
+                command.Parameters.AddWithValue("profilephoto", account.Id);
+                command.Parameters.AddWithValue("profilephotomimetype", account.Id);
+                command.Parameters.AddWithValue("dateofbirth", account.Id);
+                command.Parameters.AddWithValue("age", account.Id);
+
                 try
                 {
                     connection.Open();
@@ -66,7 +75,28 @@ namespace _IBS_AuthDAL
 
         public string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException(); //TO DO  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+            var queryString = "SELECT R.[Name] " +
+                              "FROM[dbo].[Roles] R " +
+                              "INNER JOIN[dbo].[Accounts] A " +
+                              "ON R.IdUser = A.Id " +
+                              "WHERE A.[Name] = @username";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("username", username);
+                var roles = new List<string>();
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    roles.Add((string)reader[0]); 
+                }
+                return roles.ToArray();
+            }
         }
 
         public Account GetUser(Guid id)
@@ -193,6 +223,34 @@ namespace _IBS_AuthDAL
             }
 
             return false;
-        }              
+        }
+
+        public void RemoveRole(string role)
+        {
+           var queryString =
+                "DELETE FROM [dbo].[Roles] " +
+                "WHERE[Roles].[Name] = @name;";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("name", role);
+               
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public void RemoveRoleFromUser(Guid id, string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

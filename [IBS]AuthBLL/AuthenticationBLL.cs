@@ -5,74 +5,58 @@ using System.Text;
 using System.Threading.Tasks;
 using _IBS_Entities;
 using _IBS_InterfacesBLL;
+using _IBS_InterfacesDAL;
+using _IBS_AuthDAL;
 
 namespace _IBS_AuthBLL
 {
     public class AuthenticationBLL : IAuthBLL
     {
-        public void AddUsersToRoles(string[] usernames, string[] roleNames)
+        private readonly IAuthDALRoleProvider _authDataProvider;
+        private readonly ICryptographyProvider _cryptographyProvider;
+        private IRoleManager _roleManager;
+
+        public AuthenticationBLL()
+        {
+            _authDataProvider = new AuthenticationDAL();
+            _cryptographyProvider = new CryptographyProvider();
+        }
+
+        public void AddRole(Guid id, string roleName)
+        {
+            _roleManager = new RoleManager(_authDataProvider);
+            _roleManager.AddRoleToUser()
+        }
+
+        public void AddRole(string name, string roleName)
         {
             throw new NotImplementedException();
         }
 
         public void CreateAccount(Account account)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CreateRole(string roleName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteRole(string roleName, bool throwOnPopulatedRole)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string[] FindUsersInRole(string roleName, string usernameToMatch)
-        {
-            throw new NotImplementedException();
+            account.Id = Guid.NewGuid();
+            account.Age = DateTime.Now.Year - account.DateOfBirth.Year;
+            account.Password = _cryptographyProvider.Crypt(account.Password);
+            account.Roles = new string [] { "user" };
         }
 
         public string[] GetAllRoles()
-        {
-            throw new NotImplementedException();
-        }
+            => _authDataProvider.GetAllRoles();
 
         public string[] GetRolesForUser(string username)
-        {
-            throw new NotImplementedException();
-        }
+            => _authDataProvider.GetRolesForUser(username);
 
         public Account GetUser(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+            => _authDataProvider.GetUser(id);
 
         public Account GetUser(string name)
-        {
-            throw new NotImplementedException();
-        }
+             => _authDataProvider.GetUser(name);
 
-        public string[] GetUsersInRole(string roleName)
-        {
-            throw new NotImplementedException();
-        }
+        public List<Account> GetUsersInRole(string roleName)
+            => _authDataProvider.GetUsersInRole(roleName);
 
         public bool IsUserInRole(string username, string roleName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RoleExists(string roleName)
-        {
-            throw new NotImplementedException();
-        }
+            => _authDataProvider.IsUserInRole(username, roleName);
     }
 }

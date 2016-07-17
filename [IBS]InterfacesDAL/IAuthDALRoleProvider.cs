@@ -21,6 +21,12 @@ namespace _IBS_InterfacesDAL
 
         List<Account> GetUsersInRole(string roleName);
 
-        bool IsUserInRole(string username, string roleName); 
+        bool IsUserInRole(string username, string roleName);
+
+        void AddRoleToUser(Guid id, string role);
+
+        void RemoveRoleFromUser(Guid id, string role);
+
+        void RemoveRole(string role);
     }
 }

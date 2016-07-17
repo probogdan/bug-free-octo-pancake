@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationBLL.cs" />
+    <Compile Include="CryptographyProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\[IBS]AuthDAL\[IBS]AuthDAL.csproj">

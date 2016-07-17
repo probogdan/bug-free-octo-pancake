@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAuthBLL.cs" />
+    <Compile Include="ICryptographyProvider.cs" />
     <Compile Include="IInfoBLL.cs" />
+    <Compile Include="IRoleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
