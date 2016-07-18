@@ -250,7 +250,26 @@ namespace _IBS_AuthDAL
 
         public void RemoveRoleFromUser(Guid id, string role)
         {
-            throw new NotImplementedException();
+            var queryString =
+                "DELETE FROM [dbo].[Roles] " +
+                "WHERE [Roles].[Name] = @name AND [Roles].[IdUser] = @id;";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+                command.Parameters.AddWithValue("name", role);
+                command.Parameters.AddWithValue("id", id);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
     }
 }
