@@ -24,13 +24,11 @@ namespace _IBS_AuthBLL
 
         public void AddRole(Guid id, string roleName)
         {
-            _roleManager = new RoleManager(_authDataProvider);
-            _roleManager.AddRoleToUser()
-        }
-
-        public void AddRole(string name, string roleName)
-        {
-            throw new NotImplementedException();
+            _roleManager = new RoleManager(new Account()
+            {
+                Id = id
+            });
+            _roleManager.AddRoleToUser(roleName);
         }
 
         public void CreateAccount(Account account)
@@ -58,5 +56,13 @@ namespace _IBS_AuthBLL
 
         public bool IsUserInRole(string username, string roleName)
             => _authDataProvider.IsUserInRole(username, roleName);
+
+        public void AddRole(string name, string roleName)
+        {
+            var account = this.GetUser(name);
+
+            if (account != null && !account.Roles.Contains(roleName))
+               new RoleManager(account).AddRoleToUser(roleName);
+        }
     }
 }

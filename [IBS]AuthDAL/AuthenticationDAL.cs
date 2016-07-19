@@ -15,7 +15,7 @@ namespace _IBS_AuthDAL
         {
             _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
-
+             
         public void AddRoleToUser(Guid id, string role)
         {
             throw new NotImplementedException();

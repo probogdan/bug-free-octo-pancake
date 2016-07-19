@@ -48,39 +48,19 @@ namespace _IBS_AuthBLL
         {
             if (this.usersRoles == null)
                 return;
-
-            var listOfRoles = new List<string>(this.usersRoles);
-
-            if (!listOfRoles.Exists((x) => x.Equals(role)))
-                listOfRoles.Add(role);
-
-            this.usersRoles = listOfRoles.ToArray();
+            _authDataProvider.AddRoleToUser(userId, role);
         }
 
         public void RemoveRoleFromUser(string role)
         {
             if (this.usersRoles == null)
                 return;
-
-            var listOfRoles = new List<string>(this.usersRoles);
-
-            if (listOfRoles.Exists((x) => x.Equals(role)))
-                listOfRoles.Remove(role);
-
-            this.usersRoles = listOfRoles.ToArray();
+            _authDataProvider.RemoveRoleFromUser(userId, role);
         }
 
         public void RemoveRole(string role)
         {
-            if (this._authDataProvider == null)
-                return;
-
-            var listOfRoles = new List<string>(this.usersRoles);
-
-            if (listOfRoles.Exists((x) => x.Equals(role)))
-                listOfRoles.Remove(role);
-
-            this.usersRoles = listOfRoles.ToArray();
+            _authDataProvider.RemoveRole(role);
         }
     }
 }

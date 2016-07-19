@@ -44,11 +44,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -169,13 +177,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\PetViewModel.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\VetPlusRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\Images\default.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -219,6 +233,24 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\[IBS]AuthBLL\[IBS]AuthBLL.csproj">
+      <Project>{5f3f60e0-4e78-43f7-85a6-a0252fd35199}</Project>
+      <Name>[IBS]AuthBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[IBS]Entities\[IBS]Entities.csproj">
+      <Project>{5caf5a00-6997-41e4-b33e-ca2c6ae3363b}</Project>
+      <Name>[IBS]Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[IBS]InfoBLL\[IBS]InfoBLL.csproj">
+      <Project>{82aa81f9-9b81-469f-9612-df13f3f9bc87}</Project>
+      <Name>[IBS]InfoBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[IBS]InterfacesBLL\[IBS]InterfacesBLL.csproj">
+      <Project>{c7beea60-0ad9-4851-a2c1-485ffe52a03c}</Project>
+      <Name>[IBS]InterfacesBLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
