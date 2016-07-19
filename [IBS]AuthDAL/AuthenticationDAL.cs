@@ -18,7 +18,28 @@ namespace _IBS_AuthDAL
              
         public void AddRoleToUser(Guid id, string role)
         {
-            throw new NotImplementedException();
+            string queryString =
+                 "INSERT INTO [dbo].[Roles] ([Id], [Name], [IdUser]) " +
+                 "VALUES(@id, @name, @iduser);";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("id", Guid.NewGuid());
+                command.Parameters.AddWithValue("name", role);
+                command.Parameters.AddWithValue("iduser", id);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public void CreateAccount(Account account)
