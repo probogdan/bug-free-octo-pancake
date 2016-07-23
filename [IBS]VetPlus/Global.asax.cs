@@ -3,9 +3,6 @@ using Ninject;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using _IBS_InterfacesBLL;
-using System.Configuration;
-using System.Linq;
 
 namespace _IBS_VetPlus
 {
