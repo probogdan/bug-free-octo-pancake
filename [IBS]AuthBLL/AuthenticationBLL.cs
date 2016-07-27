@@ -62,5 +62,12 @@ namespace _IBS_AuthBLL
             if (account != null && !account.Roles.Contains(roleName))
                new RoleManager(account).AddRoleToUser(roleName);
         }
+
+        public List<Account> GetAllAccounts()
+        {
+            return _authDataProvider
+                .GetAllAccounts()
+                .ToList();
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace _IBS_VetPlus.Models
 {
-    public class Post
+    public class PostViewModel
     {
         public Guid PostId { get; set; }
 

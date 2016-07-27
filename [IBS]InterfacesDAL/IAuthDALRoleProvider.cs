@@ -27,6 +27,8 @@ namespace _IBS_InterfacesDAL
 
         void RemoveRoleFromUser(Guid id, string role);
 
-        void RemoveRole(string role);        
+        void RemoveRole(string role);
+
+        IEnumerable<Account> GetAllAccounts(); 
     }
 }

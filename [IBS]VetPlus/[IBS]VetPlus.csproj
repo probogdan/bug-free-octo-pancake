@@ -182,7 +182,7 @@
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\PetViewModel.cs" />
-    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\VetPlusRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

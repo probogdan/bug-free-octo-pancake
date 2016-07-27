@@ -26,5 +26,7 @@ namespace _IBS_InterfacesBLL
         void AddRole(string name, string roleName);
 
         void AddRole(Guid id, string roleName);
+
+        List<Account> GetAllAccounts();
     }
 }

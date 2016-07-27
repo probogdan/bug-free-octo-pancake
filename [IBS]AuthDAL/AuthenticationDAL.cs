@@ -70,8 +70,34 @@ namespace _IBS_AuthDAL
                 }
             }           
         }
-             
-        
+
+        public IEnumerable<Account> GetAllAccounts()
+        {
+            var queryString = "SELECT [Id], [Name], [Password], [DateOfBirth], [Age] " +
+                             "FROM [dbo].[Accounts] ";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new Account()
+                    {
+                        Id = (Guid)reader[0],
+                        Name = (string)reader[1],
+                        Password = (string)reader[2],
+                        DateOfBirth = (DateTime)reader[3],
+                        Age = (int)reader[4]
+                    };
+                }
+            }
+        }
+
         public string[] GetAllRoles()
         {
             var queryString = "SELECT DISTINCT [Name] " +
@@ -133,7 +159,7 @@ namespace _IBS_AuthDAL
                 command.Parameters.AddWithValue("accountid", id);
 
                 connection.Open();
-
+                
                 var reader = command.ExecuteReader();
 
                 if (reader.Read())

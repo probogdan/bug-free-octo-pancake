@@ -29,8 +29,10 @@ namespace _IBS_AuthBLL
             var computedHash = _shaProvider.ComputeHash(inputBytes, offset, count);
             for (int i = 0; i < computedHash.Length; i++)
                 stringBuilder.Append(computedHash[i].ToString());
-                        
-            return stringBuilder.ToString();
+
+            input = stringBuilder.ToString();
+
+            return input;
         }
     }
 }
